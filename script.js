@@ -1,30 +1,32 @@
-// Array of image URLs with updated paths (removed 'assets/' prefix)
-const images = [
-    { src: 'warm_hug.jpg', text: 'A warm hug to you!' },
-    { src: 'my_presence.jpg', text: 'My presence is my present to you.' },
-    { src: 'my_presence_red_sweater.jpg', text: 'Wrapped up and ready to celebrate with you.' },
-    { src: 'sweet_kisses.png', text: 'Sweet kisses and holiday wishes!' }
+const gifts = [
+    { text: "a warm hug", image: "warm_hug.jpg" },
+    { text: "my presence", image: "my_presence.jpg" },
+    { text: "my presence (in a red sweater)", image: "my_presence_red_sweater.jpg" },
+    { text: "sweet kisses", image: "sweet_kisses.png" }
 ];
 
-// Function to display a random image and message
-function displayRandomImage() {
-    const randomIndex = Math.floor(Math.random() * images.length);
-    const selectedImage = images[randomIndex];
+const audioSource = "music.mp3.mp3";
+
+function displayGift() {
+    const randomIndex = Math.floor(Math.random() * gifts.length);
+    const selectedGift = gifts[randomIndex];
     
-    const imageElement = document.getElementById('christmas-image');
-    const textElement = document.getElementById('christmas-text');
+    const giftContainer = document.getElementById('gift-container');
+    giftContainer.innerHTML = `
+        <div class="gift-box">
+            <img src="${selectedGift.image}" alt="${selectedGift.text}">
+            <p>${selectedGift.text}</p>
+        </div>
+    `;
     
-    if (imageElement && textElement) {
-        imageElement.src = selectedImage.src;
-        imageElement.alt = selectedImage.text;
-        textElement.textContent = selectedImage.text;
-    }
+    // Play audio
+    const audio = new Audio(audioSource);
+    audio.play();
 }
 
-// Display an image when the page loads
-window.addEventListener('load', displayRandomImage);
-
-// Optional: Allow clicking to get a new random image
-document.addEventListener('click', function() {
-    displayRandomImage();
+document.addEventListener('DOMContentLoaded', function() {
+    const giftButton = document.getElementById('gift-button');
+    if (giftButton) {
+        giftButton.addEventListener('click', displayGift);
+    }
 });
